@@ -7,6 +7,7 @@ const {
   getAllRecipes,
   addRecipes,
   getSingleRecipe,
+  deleteRecipe,
 } = require("../controllers/recipes");
 
 // router logic will go here - will be built later on in the lab
@@ -14,5 +15,7 @@ const {
 router.get("/recipes", getAllRecipes);
 router.post("/recipes", addRecipes);
 router.get("/recipes/:recipeId", getSingleRecipe);
+
+router.delete("/recipes/:recipeId", deleteRecipe);
 
 module.exports = router;

@@ -72,7 +72,7 @@ const getSingleRecipe = async (req, res) => {
     res.status(400).json({ status: "error", msg: "Invalid recipe ID" });
   } else {
     const recipe = await Recipe.findById(recipeId);
-    if (recipeId) {
+    if (recipe) {
       res.json(recipe);
     } else {
       res.json({ status: "error", msg: "Recipe not found" });
@@ -80,7 +80,23 @@ const getSingleRecipe = async (req, res) => {
   }
 };
 
-module.exports = { getAllRecipes, addRecipes, getSingleRecipe };
+const deleteRecipe = async (req, res) => {
+  const recipeId = req.params.recipeId;
+
+  if (!mongoose.Types.ObjectId.isValid(recipeId)) {
+    return res.status(400).json({ status: "error", msg: "Invalid recipe ID" });
+  } else {
+    const recipe = await Recipe.findById(recipeId);
+    if (recipe) {
+      await Recipe.findByIdAndDelete(recipeId);
+      res.json({ status: "ok", msg: "Recipe deleted" });
+    } else {
+      res.json({ status: "error", msg: "Recipe not found" });
+    }
+  }
+};
+
+module.exports = { getAllRecipes, addRecipes, getSingleRecipe, deleteRecipe };
 
 /* WORKINGS
 
