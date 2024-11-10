@@ -48,6 +48,31 @@ const getSingleIngredient = async (req, res) => {
   }
 };
 
-module.exports = { getAllIngredients, addIngredients, getSingleIngredient };
+const updateIngredient = async (req, res) => {
+  const ingredientId = req.params.ingredientId;
+
+  if (!mongoose.Types.ObjectId.isValid(ingredientId)) {
+    return res
+      .status(400)
+      .json({ status: "error", msg: "Invalid ingredient ID" });
+  } else {
+    const ingredient = await Ingredients.findById(ingredientId);
+    if (ingredient) {
+      const response = await Ingredients.findByIdAndUpdate(ingredientId, {
+        name: req.body.name,
+      });
+      res.json({ status: "ok", msg: "updated" });
+    } else {
+      res.json({ status: "error", msg: "Ingredient not found" });
+    }
+  }
+};
+
+module.exports = {
+  getAllIngredients,
+  addIngredients,
+  getSingleIngredient,
+  updateIngredient,
+};
 
 // 	/ingredients/:ingredientId

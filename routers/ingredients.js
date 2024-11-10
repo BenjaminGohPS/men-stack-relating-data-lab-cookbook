@@ -7,6 +7,7 @@ const {
   getAllIngredients,
   addIngredients,
   getSingleIngredient,
+  updateIngredient,
 } = require("../controllers/ingredients");
 
 // router logic will go here - will be built later on in the lab
@@ -14,5 +15,6 @@ const {
 router.get("/ingredients", getAllIngredients);
 router.post("/ingredients", addIngredients);
 router.get("/ingredients/:ingredientId", getSingleIngredient);
+router.put("/ingredients/:ingredientId", updateIngredient);
 
 module.exports = router;
