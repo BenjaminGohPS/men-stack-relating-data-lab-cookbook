@@ -80,6 +80,38 @@ const getSingleRecipe = async (req, res) => {
   }
 };
 
+const updateRecipe = async (req, res) => {
+  const recipeId = req.params.recipeId;
+
+  if (!mongoose.Types.ObjectId.isValid(recipeId)) {
+    return res.status(400).json({ status: "error", msg: "Invalid recipe ID" });
+  }
+
+  try {
+    const recipe = await Recipe.findById(recipeId);
+
+    if (!recipe) {
+      res.status(400).json({ status: "error", msg: "Receipe not found" });
+    } else {
+      const updatedRecipe = await Recipe.findByIdAndUpdate(
+        recipeId,
+        {
+          name: req.body.name || recipe.name,
+          instructions: req.body.instructions || recipe.instructions,
+          owner: req.body.owner || recipe.owner,
+          ingredients: req.body.ingredients || recipe.ingredients,
+        },
+        { new: true }
+      );
+
+      res.json({ status: "ok", msg: "Recipe Updated", data: updateRecipe });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ status: "error", msg: "Internal server error" });
+  }
+};
+
 const deleteRecipe = async (req, res) => {
   const recipeId = req.params.recipeId;
 
@@ -96,7 +128,13 @@ const deleteRecipe = async (req, res) => {
   }
 };
 
-module.exports = { getAllRecipes, addRecipes, getSingleRecipe, deleteRecipe };
+module.exports = {
+  getAllRecipes,
+  addRecipes,
+  getSingleRecipe,
+  updateRecipe,
+  deleteRecipe,
+};
 
 /* WORKINGS
 

@@ -65,9 +65,9 @@ const updateIngredient = async (req, res) => {
     const ingredient = await Ingredients.findById(ingredientId);
     if (ingredient) {
       await Ingredients.findByIdAndUpdate(ingredientId, {
-        name: req.body.name,
+        name: req.body.name || ingredient.name,
       });
-      res.json({ status: "ok", msg: "updated" });
+      res.json({ status: "ok", msg: "Ingredient updated" });
     } else {
       res.json({ status: "error", msg: "Ingredient not found" });
     }
