@@ -22,13 +22,19 @@ const getAllIngredients = async (req, res) => {
 };
 
 const addIngredients = async (req, res) => {
-  const newIngredient = new Ingredients({
-    name: req.body.name,
-  });
+  const existingIngredient = await Ingredients.findOne({ name: req.body.name });
 
-  await newIngredient.save();
+  if (existingIngredient) {
+    return res.json({ status: "error", msg: "Ingredient exist" });
+  } else {
+    const newIngredient = new Ingredients({
+      name: req.body.name,
+    });
 
-  res.json({ status: "ok", msg: "Ingredient saved" });
+    await newIngredient.save();
+
+    res.json({ status: "ok", msg: "Ingredient saved" });
+  }
 };
 
 const getSingleIngredient = async (req, res) => {
