@@ -40,7 +40,7 @@ const getSingleIngredient = async (req, res) => {
       .json({ status: "error", msg: "Invalid ingredient ID" });
   } else {
     const ingredient = await Ingredients.findById(ingredientId);
-    if (ingredientId) {
+    if (ingredient) {
       res.json(ingredient);
     } else {
       res.json({ status: "error", msg: "Ingredient not found" });
@@ -58,10 +58,28 @@ const updateIngredient = async (req, res) => {
   } else {
     const ingredient = await Ingredients.findById(ingredientId);
     if (ingredient) {
-      const response = await Ingredients.findByIdAndUpdate(ingredientId, {
+      await Ingredients.findByIdAndUpdate(ingredientId, {
         name: req.body.name,
       });
       res.json({ status: "ok", msg: "updated" });
+    } else {
+      res.json({ status: "error", msg: "Ingredient not found" });
+    }
+  }
+};
+
+const deleteIngredient = async (req, res) => {
+  const ingredientId = req.params.ingredientId;
+
+  if (!mongoose.Types.ObjectId.isValid(ingredientId)) {
+    return res
+      .status(400)
+      .json({ status: "error", msg: "Invalid ingredient ID" });
+  } else {
+    const ingredient = await Ingredients.findById;
+    if (ingredient) {
+      await Ingredients.findByIdAndDelete(ingredientId);
+      res.json({ status: "ok", msg: "Ingredient deleted" });
     } else {
       res.json({ status: "error", msg: "Ingredient not found" });
     }
@@ -73,6 +91,7 @@ module.exports = {
   addIngredients,
   getSingleIngredient,
   updateIngredient,
+  deleteIngredient,
 };
 
 // 	/ingredients/:ingredientId
