@@ -17,7 +17,7 @@ const getAllRecipes = async (req, res) => {
   if (allReceipes.length > 0) {
     res.json(allReceipes);
   } else {
-    res.json({ status: "error", msg: "No Recipes Found" });
+    res.json({ status: "error", msg: "No recipes found" });
   }
 };
 

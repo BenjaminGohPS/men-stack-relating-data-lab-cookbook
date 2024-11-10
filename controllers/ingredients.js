@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require("uuid");
+const mongoose = require("mongoose");
 
 // controllers/ingredients.js
 
@@ -16,7 +17,7 @@ const getAllIngredients = async (req, res) => {
   if (allIngredients.length > 0) {
     res.json(allIngredients);
   } else {
-    res.json({ status: "error", msg: "No Ingredients Found" });
+    res.json({ status: "error", msg: "No ingredients found" });
   }
 };
 
@@ -27,7 +28,26 @@ const addIngredients = async (req, res) => {
 
   await newIngredient.save();
 
-  res.json({status: 'ok', msg: 'Ingredient Saved'})
+  res.json({ status: "ok", msg: "Ingredient saved" });
 };
 
-module.exports = { getAllIngredients,addIngredients, };
+const getSingleIngredient = async (req, res) => {
+  const ingredientId = req.params.ingredientId;
+
+  if (!mongoose.Types.ObjectId.isValid(ingredientId)) {
+    return res
+      .status(400)
+      .json({ status: "error", msg: "Invalid ingredient ID" });
+  } else {
+    const ingredient = await Ingredients.findById(ingredientId);
+    if (ingredientId) {
+      res.json(ingredient);
+    } else {
+      res.json({ status: "error", msg: "Ingredient not found" });
+    }
+  }
+};
+
+module.exports = { getAllIngredients, addIngredients, getSingleIngredient };
+
+// 	/ingredients/:ingredientId
