@@ -47,7 +47,7 @@ const addRecipes = async (req, res) => {
     if (!ingredients.every((id) => mongoose.Types.ObjectId.isValid(id))) {
       return res
         .status(400)
-        .json({ status: "error", msg: "Invalid ingredient Id" });
+        .json({ status: "error", msg: "Invalid ingredient ID" });
     }
   }
 
@@ -65,9 +65,22 @@ const addRecipes = async (req, res) => {
   }
 };
 
+const getSingleRecipe = async (req, res) => {
+  const recipeId = req.params.recipeId;
 
+  if (!mongoose.Types.ObjectId.isValid(recipeId)) {
+    res.status(400).json({ status: "error", msg: "Invalid recipe ID" });
+  } else {
+    const recipe = await Recipe.findById(recipeId);
+    if (recipeId) {
+      res.json(recipe);
+    } else {
+      res.json({ status: "error", msg: "Recipe not found" });
+    }
+  }
+};
 
-module.exports = { getAllRecipes, addRecipes };
+module.exports = { getAllRecipes, addRecipes, getSingleRecipe };
 
 /* WORKINGS
 
