@@ -20,4 +20,14 @@ const getAllIngredients = async (req, res) => {
   }
 };
 
-module.exports = {getAllIngredients};
+const addIngredients = async (req, res) => {
+  const newIngredient = new Ingredients({
+    name: req.body.name,
+  });
+
+  await newIngredient.save();
+
+  res.json({status: 'ok', msg: 'Ingredient Saved'})
+};
+
+module.exports = { getAllIngredients,addIngredients, };
