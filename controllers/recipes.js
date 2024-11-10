@@ -1,14 +1,9 @@
 const express = require("express");
-const router = express.Router();
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const { v4: uuidv4 } = require("uuid");
 
 // controllers/recipes.js
 const mongoose = require("mongoose");
 const Users = require("../models/Users.js");
 const Recipe = require("../models/Recipe.js");
-const Ingredients = require("../models/Ingredients.js");
 
 // controller logic will go here - will be built later on in the lab
 
@@ -135,14 +130,3 @@ module.exports = {
   updateRecipe,
   deleteRecipe,
 };
-
-/* WORKINGS
-
-  // const newRecipes = new Recipe({
-  //   name: req.body.name,
-  //   instructions: req.body.instructions,
-  //   owner: req.body.owner,
-  //   ingredients: req.body.ingredients,
-  // });
-
-*/

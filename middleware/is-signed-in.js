@@ -11,7 +11,7 @@ const isSignedIn = (req, res, next) => {
     });
   }
 
-  const token = req.headers["auithorization"].replace("Bearer ", "");
+  const token = req.headers["authorization"].replace("Bearer ", "");
   if (token) {
     try {
       const decoded = jwt.verify(token, process.env.ACCESS_SECRET);

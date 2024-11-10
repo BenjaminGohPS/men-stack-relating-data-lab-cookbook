@@ -1,8 +1,5 @@
 const express = require("express");
-const router = express.Router();
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const { v4: uuidv4 } = require("uuid");
+
 const mongoose = require("mongoose");
 
 // controllers/ingredients.js
@@ -92,18 +89,6 @@ const deleteIngredient = async (req, res) => {
   }
 };
 
-// const findIngredientById = async (req, res) => {
-//   const ingredient = await Ingredients.aggregate([
-//     {
-//       $match: {
-//         ingredients: new [mongoose.Types.ObjectId(req.body.ingredientsId)](),
-//       },
-//     },
-//   ]);
-
-//   res.json(ingredient);
-// };
-
 module.exports = {
   getAllIngredients,
   addIngredients,
@@ -111,5 +96,3 @@ module.exports = {
   updateIngredient,
   deleteIngredient,
 };
-
-// 	/ingredients/:ingredientId
