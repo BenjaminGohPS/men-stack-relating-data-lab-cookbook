@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require("uuid");
 
+const mogoose = require("mongoose");
 const User = require("../models/Users.js");
 
 const signUp = async (req, res) => {

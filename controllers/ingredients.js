@@ -86,6 +86,18 @@ const deleteIngredient = async (req, res) => {
   }
 };
 
+// const findIngredientById = async (req, res) => {
+//   const ingredient = await Ingredients.aggregate([
+//     {
+//       $match: {
+//         ingredients: new [mongoose.Types.ObjectId(req.body.ingredientsId)](),
+//       },
+//     },
+//   ]);
+
+//   res.json(ingredient);
+// };
+
 module.exports = {
   getAllIngredients,
   addIngredients,

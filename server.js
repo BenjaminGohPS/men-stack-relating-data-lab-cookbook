@@ -27,7 +27,7 @@ app.use(morgan("dev"));
 // app.use("/ingredients", ingredientsController);
 
 // below middleware
-// app.use("/auth", authRouter);
+app.use("/auth", authRouter);
 app.use("/lab", recipesRouter);
 app.use("/lab", ingredientsRouter);
 
